@@ -23,18 +23,10 @@ jobs:
           flutter-version: '3.29.2'
           cache: true 
 
-      - name: Install Node.js (for semantic-release)
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install dependencies
-        run: |
-          flutter pub get
-          npm install -g semantic-release @semantic-release/changelog @semantic-release/git
-
-      - name: Semantic Release
+      - run: npm install -g semantic-release @semantic-release/changelog @semantic-release/git
+      - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npx semantic-release --branches main
